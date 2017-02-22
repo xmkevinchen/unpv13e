@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <sys/uio.h>
+#include <unistd.h>
 #include <time.h>
 
 #include <netinet/in.h>
@@ -19,7 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+#define LISTENQ 1024
 
 void err_ret(const char *, ...);
 void err_sys(const char *, ...);

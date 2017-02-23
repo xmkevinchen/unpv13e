@@ -3,17 +3,20 @@ include ../Make.defines
 BUILDDIR = build
 OBJECTS := $(addprefix $(BUILDDIR)/, $(patsubst %.c, %.o, $(wildcard *.c)))
 
+.DEFAULT_GOAL := all
 
 .PHONY: clean
 
-$(BUILDDIR)/%.o: %.c
+$(BUILDDIR):
 	mkdir $(BUILDDIR)
+
+$(OBJECTS): $(BUILDDIR)/%.o: %.c $(BUILDDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(OBJECTS)
-	ar rv $(LIBUNP_NAME) $?
+	ar rv $(LIBUNP_NAME) $^
 	$(RANLIB) $(LIBUNP_NAME)
 
 clean:
-	rm $(LIBUNP_NAME)
-	rm -rf $(BUILDDIR)
+	@rm -rf $(BUILDDIR)
+	@rm $(LIBUNP_NAME)

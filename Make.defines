@@ -1,4 +1,3 @@
-
 CC = gcc
 CFLAGS = -I../lib -g -O2 -Wall
 LIBUNP_NAME = libupn.a

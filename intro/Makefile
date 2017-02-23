@@ -1,11 +1,22 @@
 include ../Make.defines
 
-PROGS = daytimetcpcli
+PROGS = daytimetcpcli daytimetcpsrv
+BUILDDIR = build
 
-all:	${PROGS}
+all: $(PROGS)
 
-daytimetcpcli: daytimetcpcli.o
-	${CC} ${CFLAGS} -o $@ daytimetcpcli.o ${LIBS}
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
 
-daytimetcpsrv: daytimetcpsrv.o
-	${CC} ${CFLAGS} -o $@ daytimetcpsrv.o ${LIBS}
+$(BUILDDIR)/%.o: %.c $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+daytimetcpcli: $(BUILDDIR)/daytimetcpcli.o
+	$(CC) $(CFLAGS) -o build/$@ $< $(LIBS)
+
+daytimetcpsrv: $(BUILDDIR)/daytimetcpsrv.o
+	$(CC) $(CFLAGS) -o build/$@ $< $(LIBS)
+
+clean:
+	rm -rf *.o
+	rm -rf build

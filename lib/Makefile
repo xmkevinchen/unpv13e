@@ -1,8 +1,19 @@
 include ../Make.defines
 
-all: ${LIB_OBJCS}
-	ar rv ${LIBUNP_NAME} $?
-	${RANLIB} ${LIBUNP_NAME}
+BUILDDIR = build
+OBJECTS := $(addprefix $(BUILDDIR)/, $(patsubst %.c, %.o, $(wildcard *.c)))
+
+
+.PHONY: clean
+
+$(BUILDDIR)/%.o: %.c
+	mkdir $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+all: $(OBJECTS)
+	ar rv $(LIBUNP_NAME) $?
+	$(RANLIB) $(LIBUNP_NAME)
 
 clean:
-	rm -rf ${PROGS} ${CLEANFILES}
+	rm $(LIBUNP_NAME)
+	rm -rf $(BUILDDIR)

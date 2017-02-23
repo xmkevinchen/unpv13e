@@ -1,12 +1,6 @@
 
 CC = gcc
 CFLAGS = -I../lib -g -O2 -Wall
-LIBS = ../libupn.a -lresolv -lpthread
+LIBUNP_NAME = libupn.a
+LIBS = ../lib/$(LIBUNP_NAME) -lresolv -lpthread
 RANLIB = ranlib
-
-LIB_OBJCS = error.o
-LIBUNP_NAME = ../libupn.a
-
-
-CLEANFILES = core core.* *.core *.o temp.* *.out typescript* \
-		*.lc *.lh *.bsdi *.sparc *.uw

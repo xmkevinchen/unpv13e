@@ -10,20 +10,22 @@ int main(int argc, char const *argv[]) {
   char    buff[MAXLINE];
   time_t  ticks;
 
-  listenfd = socket(AF_INET, SOCK_STREAM, 0);
+  listenfd = Socket(AF_INET, SOCK_STREAM, 0);
   bzero(&servaddr, sizeof(servaddr));
   servaddr.sin_family       = AF_INET;
   servaddr.sin_addr.s_addr  = htonl(INADDR_ANY);
-  servaddr.sin_port         = htons(10003);
+  servaddr.sin_port         = htons(10013);
 
-  bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
-  listen(listenfd, LISTENQ);
+  Bind(listenfd, (struct sockaddr *) &servaddr, sizeof(servaddr));
+  Listen(listenfd, LISTENQ);
 
   for (;;) {
-    connfd = accept(listenfd, NULL, NULL);
+    connfd = Accept(listenfd, NULL, NULL);
     ticks = time(NULL);
     snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
-    write(connfd, buff, strlen(buff));
+    if (write(connfd, buff, strlen(buff)) != strlen(buff)) {
+        err_sys("write error");
+    }
 
     close(connfd);
   }

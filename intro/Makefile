@@ -1,6 +1,6 @@
 include ../Make.defines
 
-PROGS = daytimetcpcli daytimetcpsrv
+PROGS = daytimetcpcli daytimetcpsrv daytimetcpcliv6
 BUILDDIR = build
 
 all: $(PROGS)
@@ -15,6 +15,9 @@ daytimetcpcli: $(BUILDDIR)/daytimetcpcli.o
 	$(CC) $(CFLAGS) -o build/$@ $< $(LIBS)
 
 daytimetcpsrv: $(BUILDDIR)/daytimetcpsrv.o
+	$(CC) $(CFLAGS) -o build/$@ $< $(LIBS)
+
+daytimetcpcliv6: $(BUILDDIR)/daytimetcpcliv6.o
 	$(CC) $(CFLAGS) -o build/$@ $< $(LIBS)
 
 clean:

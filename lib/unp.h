@@ -27,5 +27,9 @@ void err_ret(const char *, ...);
 void err_sys(const char *, ...);
 void err_quit(const char *, ...);
 
+int Socket(int, int, int);
+int Accept(int, struct sockaddr *, socklen_t *);
+void Bind(int, const struct sockaddr *, socklen_t);
+void Listen(int, int);
 
 #endif
